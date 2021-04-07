@@ -77,6 +77,17 @@ const tmV02 = [
     [100,	1.408]
 ];
 
+
+// X - power
+// Y - voltage
+const tmV03 = [
+    [0.0001,    0.5],
+    [1,	        1.025],
+    [10,	    1.195],
+    [100,	    1.408]
+];
+
+
 function runExperiment(name, data) {
     let result = regression.logarithmic(data, {precision: 99});
     log.info("R^2: " + result.r2, name);    
@@ -85,6 +96,7 @@ function runExperiment(name, data) {
     log.info("Voltage at 1W:      " + result.predict(1)[1], name);    
     log.info("Voltage at 0.1W:    " + result.predict(0.1)[1], name);    
     log.info("Voltage at 0.001W:  " + result.predict(0.001)[1], name);    
+    log.info("Voltage at 0.0001W: " + result.predict(0.0001)[1], name);    
     log.info("Function dir: " + JSON.stringify(result.string), name);    
     log.info(`Function inv: "y = exp((x - ${result.equation[0]})/${result.equation[1]})"`, name);    
     log.info("done.\n\n", name);    
@@ -92,3 +104,5 @@ function runExperiment(name, data) {
 
 runExperiment("V1", tmV01);
 runExperiment("V2", tmV02);
+runExperiment("V3", tmV03);
+log.info("Visualizer url: https://www.desmos.com/calculator/");
