@@ -89,16 +89,16 @@ const tmV03 = [
 
 
 function runExperiment(name, data) {
-    let result = regression.logarithmic(data, {precision: 99});
-    log.info("R^2: " + result.r2, name);    
-    log.info("Voltage at 1kW:     " + result.predict(1000)[1], name);    
-    log.info("Voltage at 0.9kW:   " + result.predict(900)[1], name);    
-    log.info("Voltage at 1W:      " + result.predict(1)[1], name);    
-    log.info("Voltage at 0.1W:    " + result.predict(0.1)[1], name);    
-    log.info("Voltage at 0.001W:  " + result.predict(0.001)[1], name);    
-    log.info("Voltage at 0.0001W: " + result.predict(0.0001)[1], name);    
-    log.info("Function dir: " + JSON.stringify(result.string), name);    
-    log.info(`Function inv: "y = exp((x - ${result.equation[0]})/${result.equation[1]})"`, name);    
+    let result = regression.logarithmic(data, {precision: 6});
+    log.info("R^2:                 " + result.r2, name);    
+    log.info("Voltage at 1kW:      " + result.predict(1000)[1], name);    
+    log.info("Voltage at 0.9kW:    " + result.predict(900)[1], name);    
+    log.info("Voltage at 1W:       " + result.predict(1)[1], name);    
+    log.info("Voltage at 0.1W:     " + result.predict(0.1)[1], name);    
+    log.info("Voltage at 0.001W:   " + result.predict(0.001)[1], name);    
+    log.info("Voltage at 0.0001W:  " + result.predict(0.0001)[1], name);    
+    log.info("Function dir:        " + JSON.stringify(result.string), name);    
+    log.info(`Function inv:        "y = exp((x - ${result.equation[0]})/${result.equation[1]})"`, name);    
     log.info("done.\n\n", name);    
 }
 
@@ -106,3 +106,4 @@ runExperiment("V1", tmV01);
 runExperiment("V2", tmV02);
 runExperiment("V3", tmV03);
 log.info("Visualizer url: https://www.desmos.com/calculator/");
+log.info("done.\n\n");    
