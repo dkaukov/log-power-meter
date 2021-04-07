@@ -89,6 +89,7 @@ const tmV03 = [
 
 
 function runExperiment(name, data) {
+    log.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", name);
     let result = regression.logarithmic(data, {precision: 6});
     log.info("R^2:                 " + result.r2, name);    
     log.info("Voltage at 1kW:      " + result.predict(1000)[1], name);    
@@ -97,9 +98,10 @@ function runExperiment(name, data) {
     log.info("Voltage at 0.1W:     " + result.predict(0.1)[1], name);    
     log.info("Voltage at 0.001W:   " + result.predict(0.001)[1], name);    
     log.info("Voltage at 0.0001W:  " + result.predict(0.0001)[1], name);    
+    log.info("Slope:               " + Math.round((result.predict(11.22018)[1] - result.predict(10)[1])*100000) / 100 + " mV/dB", name);    
     log.info("Function dir:        " + JSON.stringify(result.string), name);    
     log.info(`Function inv:        "y = exp((x - ${result.equation[0]})/${result.equation[1]})"`, name);    
-    log.info("done.\n\n", name);    
+    log.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n", name);    
 }
 
 runExperiment("V1", tmV01);
