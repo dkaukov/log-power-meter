@@ -87,6 +87,49 @@ const tmV03 = [
     [100,	    1.408]
 ];
 
+const tm50ohm54dbFwd =[
+    [1,	1.165],
+    [2,	1.516],
+    [3,	1.552],
+    [4,	1.575],
+    [5,	1.595],
+    [6,	1.61],
+    [7,	1.626],
+    [8,	1.64],
+    [9,	1.65],
+    [10,	1.66],
+    [20,	1.73],
+    [30,	1.775],
+    [40,	1.8],
+    [50,	1.82],
+    [60,	1.843],
+    [70,	1.85],
+    [80,	1.863],
+    [90,	1.87],
+    [100,	1.878]
+];
+
+const tm50ohm54dbRfl =[
+    [1,	1.095],
+    [2,	1.143],
+    [3,	1.182],
+    [4,	1.205],
+    [5,	1.23],
+    [6,	1.242],
+    [7,	1.26],
+    [8,	1.275],
+    [9,	1.285],
+    [10,	1.295],
+    [20,	1.36],
+    [30,	1.396],
+    [40,	1.41],
+    [50,	1.435],
+    [60,	1.452],
+    [70,	1.453],
+    [80,	1.454],
+    [90,	1.456],
+    [100,	1.459]
+];
 
 function runExperiment(name, data) {
     log.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", name);
@@ -98,7 +141,9 @@ function runExperiment(name, data) {
     log.info("Voltage at 0.1W:     " + result.predict(0.1)[1], name);    
     log.info("Voltage at 0.001W:   " + result.predict(0.001)[1], name);    
     log.info("Voltage at 0.0001W:  " + result.predict(0.0001)[1], name);    
-    log.info("Slope:               " + Math.round((result.predict(11.22018)[1] - result.predict(10)[1])*100000) / 100 + " mV/dB", name);    
+    //log.info("Slope:               " + Math.round((result.predict(11.22018)[1] - result.predict(10)[1])*100000) / 100 + " mV/dB", name);    
+    log.info("Slope:               " + Math.round((result.equation[1] / Math.LOG10E) * 100000 / 20)/100 + " mV/dB", name);    
+    log.info("Intercept:           " + Math.round((result.equation[0] * Math.LOG10E)*1000)/1000 + " V", name);    
     log.info("Function dir:        " + JSON.stringify(result.string), name);    
     log.info(`Function inv:        "y = exp((x - ${result.equation[0]})/${result.equation[1]})"`, name);    
     log.info("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n", name);    
@@ -107,5 +152,7 @@ function runExperiment(name, data) {
 runExperiment("V1", tmV01);
 runExperiment("V2", tmV02);
 runExperiment("V3", tmV03);
+runExperiment("50 Ohm -54.54dB: Fwd", tm50ohm54dbFwd);
+runExperiment("50 Ohm -54.54dB: Rfl", tm50ohm54dbRfl);
 log.info("Visualizer url: https://www.desmos.com/calculator/");
 log.info("done.\n\n");    
