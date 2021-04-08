@@ -121,7 +121,9 @@ function runExperiment(name, data) {
     let result = regression.logarithmic(data, {precision: 6});
     log.info("R^2:                 " + result.r2, name);    
     log.info("Voltage at 1kW:      " + result.predict(1000)[1], name);    
-    log.info("Voltage at 0.9kW:    " + result.predict(900)[1], name);    
+    log.info("Voltage at 0.9kW:    " + result.predict(900)[1], name);  
+    log.info("Voltage at 100W:     " + result.predict(100)[1], name); 
+    log.info("Voltage at 10W:      " + result.predict(10)[1], name);   
     log.info("Voltage at 1W:       " + result.predict(1)[1], name);    
     log.info("Voltage at 0.1W:     " + result.predict(0.1)[1], name);    
     log.info("Voltage at 0.001W:   " + result.predict(0.001)[1], name);    
